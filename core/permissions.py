@@ -10,7 +10,6 @@ class IsProjectOwnerOrAdmin(BasePermission):
        
         return request.user == obj.owner or request.user.is_staff
 
-
 class IsTaskAssignerOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         

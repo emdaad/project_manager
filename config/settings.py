@@ -34,12 +34,15 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django_filters',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
     'core',
+    'taggit',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -104,6 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'core.validators.StrongPasswordValidator',
+    }
 ]
 
 
@@ -142,5 +151,19 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
+}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
 }
