@@ -4,11 +4,15 @@ from taggit.managers import TaggableManager
 from django.utils.timezone import now
 from datetime import timedelta
 from django.contrib.auth import get_user_model
+from .managers import CustomUserManager
+
 # Create your models here.
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True)
+
+    objects = CustomUserManager()
 
 # core/models.py
 
